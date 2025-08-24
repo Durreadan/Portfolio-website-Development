@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dur-e-Adan | Portfolio</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        background: linear-gradient(135deg, #0f172a, #1e1b4b, #0f172a);
+        background-size: 300% 300%;
+        animation: gradientBG 12s ease infinite;
+        color: #e5e7eb;
+        scroll-behavior: smooth;
+      }
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      header {
+        background: rgba(15, 23, 42, 0.5);
+        color: #fff;
+        padding: 1rem 2rem;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      header h1 {
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+      }
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 1rem;
+      }
+      nav ul li a {
+        color: #e5e7eb;
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+      }
+      nav ul li a:hover {
+        background: rgba(59, 130, 246, 0.3);
+      }
+      .menu-toggle {
+        display: none;
+        cursor: pointer;
+      }
+
+      .section {
+        padding: 4rem 2rem;
+        max-width: 1200px;
+        margin: auto;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.8s ease;
+      }
+      .section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .section h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-size: 2.2rem;
+        color: #60a5fa;
+      }
+
+      .glass-card {
+        background: rgba(30, 41, 59, 0.5);
+        backdrop-filter: blur(15px);
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .glass-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+      }
+
+      /* Profile image in about section */
+      .profile-pic {
+        display: block;
+        margin: 0 auto 1rem auto;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid rgba(59, 130, 246, 0.6);
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+      }
+
+      .skills-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+      }
+      .skill {
+        background: rgba(59, 130, 246, 0.2);
+        border: 1px solid rgba(59, 130, 246, 0.4);
+        padding: 0.5rem 1.2rem;
+        border-radius: 25px;
+        color: #93c5fd;
+        font-size: 0.9rem;
+        transition: transform 0.3s ease, background 0.3s ease;
+        backdrop-filter: blur(5px);
+      }
+      .skill:hover {
+        background: rgba(59, 130, 246, 0.4);
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.8);
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1rem;
+      }
+      .project-card {
+        background: rgba(30, 41, 59, 0.5);
+        padding: 1.2rem;
+        border-radius: 12px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease, background 0.3s ease;
+      }
+      .project-card:hover {
+        background: rgba(59, 130, 246, 0.3);
+        transform: translateY(-8px);
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+      }
+      .project-links {
+        margin-top: 0.5rem;
+      }
+      .project-links a {
+        color: #93c5fd;
+        font-size: 0.9rem;
+        margin-right: 10px;
+        text-decoration: none;
+      }
+      .project-links a:hover {
+        text-decoration: underline;
+      }
+
+      .contact form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      .contact input,
+      .contact textarea {
+        padding: 0.6rem;
+        border-radius: 8px;
+        border: none;
+        background: rgba(51, 65, 85, 0.5);
+        color: #e5e7eb;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .contact input::placeholder,
+      .contact textarea::placeholder {
+        color: rgba(229, 231, 235, 0.7);
+      }
+      .contact button {
+        background: rgba(59, 130, 246, 0.3);
+        color: #e5e7eb;
+        padding: 0.6rem;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: transform 0.3s ease, background 0.3s ease;
+      }
+      .contact button:hover {
+        background: rgba(59, 130, 246, 0.5);
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.8);
+      }
+      footer {
+        text-align: center;
+        padding: 1rem;
+        background: rgba(15, 23, 42, 0.5);
+        color: #94a3b8;
+        margin-top: 1rem;
+        backdrop-filter: blur(5px);
+      }
+      @media (max-width: 768px) {
+        nav ul {
+          flex-direction: column;
+          display: none;
+          background: rgba(15, 23, 42, 0.95);
+          position: absolute;
+          right: 0;
+          top: 60px;
+          width: 200px;
+          padding: 1rem;
+        }
+        nav ul.active {
+          display: flex;
+        }
+        .menu-toggle {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Dur-e-Adan</h1>
+      <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+      <nav>
+        <ul id="menu">
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section id="about" class="section">
+      <div class="glass-card">
+        <img src="./about.png" alt="Profile" class="profile-pic" />
+        <h2>About Me</h2>
+        <p>
+          I am Dur-e-Adan, a passionate Artificial Intelligence specialist who
+          has recently graduated with a Bachelor’s degree in Artificial
+          Intelligence from COMSATS University Islamabad, Attock Campus. Skilled
+          in Python, machine learning, deep learning, and computer vision, I aim
+          to create innovative AI solutions that solve real-world problems.
+        </p>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="glass-card">
+        <h2>Skills</h2>
+        <div class="skills-list">
+          <span class="skill">Python</span>
+          <span class="skill">Machine Learning</span>
+          <span class="skill">Deep Learning</span>
+          <span class="skill">Computer Vision</span>
+          <span class="skill">Data Analysis</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="glass-card">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+          <div class="project-card">
+            <h3>AR Cricket Game</h3>
+            <br>
+            <p>
+              An Augmented reality cricket game where the batsman and bowler are
+              trained using AI to simulate realistic gameplay and
+              decision-making.
+            </p>
+          </div>
+          <div class="project-card">
+            <h3>Credit Card fraud Detection</h3>
+            <br>
+            <p>
+              A machine learning project that detects credit card fraud by
+              analyzing patterns in legitimate and fraudulent transaction data.
+            </p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="glass-card contact">
+        <h2>Contact</h2>
+        <form action="https://formspree.io/f/{your-form-id}" method="POST">
+          <input type="text" name="name" placeholder="Your Name" required />
+          <input
+            type="email"
+            name="_replyto"
+            placeholder="Your Email"
+            required
+          />
+          <textarea
+            name="message"
+            rows="5"
+            placeholder="Your Message"
+            required
+          ></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Dur-e-Adan | All Rights Reserved</p>
+    </footer>
+
+    <script>
+      function toggleMenu() {
+        document.getElementById("menu").classList.toggle("active");
+      }
+      const sections = document.querySelectorAll(".section");
+      window.addEventListener("scroll", () => {
+        sections.forEach((sec) => {
+          const secTop = sec.getBoundingClientRect().top;
+          if (secTop < window.innerHeight - 100) {
+            sec.classList.add("visible");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
